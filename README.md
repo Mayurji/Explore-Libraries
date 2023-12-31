@@ -13,3 +13,4 @@ Understanding and implementing NLP and CV libraries with ML standpoint.
 | ML-Computations-Libs    | Topics | YouTube |
 | :---        | :----:       | :----:             |
 | [Dask](https://docs.dask.org/en/stable/)| Dask Delayed, Dask with Pandas, Dask Distributed, etc |[![Dask](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/playlist?list=PLVVBQldz3m5v295najN5MKBGLPgxapDfa) |
+| [cuDF](https://docs.rapids.ai/api/cudf/stable/)| cuDF Multi-Index, Boolean Index, Missing Data, etc|[![cuDF](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/playlist?list=PLVVBQldz3m5vU6fjyLHwsYex_2Ud1124r) |
