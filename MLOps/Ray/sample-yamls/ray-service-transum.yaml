@@ -1,0 +1,62 @@
+apiVersion: ray.io/v1
+kind: RayService
+metadata:
+  name: text-summarizer
+spec:
+  serveConfigV2: |
+    applications:
+      - name: "text_summarizer"
+        import_path: "ray_transum:app"
+        runtime_env:
+          working_dir: "https://github.com/Mayurji/Explore-Libraries/raw/157097ce2f15b109d33516926fc48872349fe1e3/MLOps/Ray/sample-yamls/ray_transum.zip"
+          config: {"setup_timeout_seconds": 1200}
+
+  rayClusterConfig:
+    rayVersion: '2.38.0' # should match the Ray version in the image of the containers
+    # Ray head pod template
+    headGroupSpec:
+      rayStartParams: {}
+      #pod template
+      template:
+        spec:
+          containers:
+          - name: ray-head
+            image: mayur28/torch-hf-cpu-ray-2.38.0:2.5.0 #rayproject/ray:2.38.0-cpu
+            resources:
+              limits:
+                cpu: 2
+                memory: 4Gi
+              requests:
+                cpu: 2
+                memory: 4Gi
+            ports:
+            - containerPort: 6379
+              name: gcs-server
+            - containerPort: 8265 # Ray dashboard
+              name: dashboard
+            - containerPort: 10001
+              name: client
+            - containerPort: 8000
+              name: serve
+
+    workerGroupSpecs:
+      # the pod replicas in this group typed worker
+      - replicas: 1
+        minReplicas: 1
+        maxReplicas: 1
+        # logical group name, for this called small-group, also can be functional
+        groupName: small-group
+        rayStartParams: {}
+        #pod template
+        template:
+          spec:
+            containers:
+              - name: ray-worker # must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc'
+                image: mayur28/torch-hf-cpu-ray-2.38.0:2.5.0 #rayproject/ray:2.38.0-cpu
+                resources:
+                  limits:
+                    cpu: 4
+                    memory: 6Gi
+                  requests:
+                    cpu: 4
+                    memory: 4Gi
