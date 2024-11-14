@@ -1,0 +1,210 @@
+(ml-kubernetes) mayur@mayur:~/Documents/MLOps-Project$ curl -s "https://raw.githubusercontent.com/kserve/kserve/release-0.13/hack/quick_install.sh" | bash
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   102  100   102    0     0    369      0 --:--:-- --:--:-- --:--:--   368
+100  4899  100  4899    0     0   9354      0 --:--:-- --:--:-- --:--:--  9354
+
+Downloading istio-1.20.4 from https://github.com/istio/istio/releases/download/1.20.4/istio-1.20.4-linux-amd64.tar.gz ...
+
+Istio 1.20.4 Download Complete!
+
+Istio has been successfully downloaded into the istio-1.20.4 folder on your system.
+
+Next Steps:
+See https://istio.io/latest/docs/setup/install/ to add Istio to your Kubernetes cluster.
+
+To configure the istioctl client tool for your workstation,
+add the /home/mayur/Documents/MLOps-Project/istio-1.20.4/bin directory to your environment path variable with:
+         export PATH="$PATH:/home/mayur/Documents/MLOps-Project/istio-1.20.4/bin"
+
+Begin the Istio pre-installation check by running:
+         istioctl x precheck 
+
+Need more information? Visit https://istio.io/latest/docs/setup/install/ 
+namespace/istio-system unchanged
+WARNING: Istio 1.20.0 may be out of support (EOL) already: see https://istio.io/latest/docs/releases/supported-releases/ for supported releases
+✔ Istio core installed                                                                                                                                                                       
+✔ Istiod installed                                                                                                                                                                           
+✔ Ingress gateways installed                                                                                                                                                                 
+✔ Installation complete                                                                                                                                                                      Made this installation the default for injection and validation.
+😀 Successfully installed Istio
+customresourcedefinition.apiextensions.k8s.io/certificates.networking.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/configurations.serving.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/clusterdomainclaims.networking.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/domainmappings.serving.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/ingresses.networking.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/metrics.autoscaling.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/podautoscalers.autoscaling.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/revisions.serving.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/routes.serving.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/serverlessservices.networking.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/services.serving.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/images.caching.internal.knative.dev unchanged
+namespace/knative-serving unchanged
+role.rbac.authorization.k8s.io/knative-serving-activator unchanged
+clusterrole.rbac.authorization.k8s.io/knative-serving-activator-cluster unchanged
+clusterrole.rbac.authorization.k8s.io/knative-serving-aggregated-addressable-resolver unchanged
+clusterrole.rbac.authorization.k8s.io/knative-serving-addressable-resolver unchanged
+clusterrole.rbac.authorization.k8s.io/knative-serving-namespaced-admin unchanged
+clusterrole.rbac.authorization.k8s.io/knative-serving-namespaced-edit unchanged
+clusterrole.rbac.authorization.k8s.io/knative-serving-namespaced-view unchanged
+clusterrole.rbac.authorization.k8s.io/knative-serving-core unchanged
+clusterrole.rbac.authorization.k8s.io/knative-serving-podspecable-binding unchanged
+serviceaccount/controller unchanged
+clusterrole.rbac.authorization.k8s.io/knative-serving-admin unchanged
+clusterrolebinding.rbac.authorization.k8s.io/knative-serving-controller-admin unchanged
+clusterrolebinding.rbac.authorization.k8s.io/knative-serving-controller-addressable-resolver unchanged
+serviceaccount/activator unchanged
+rolebinding.rbac.authorization.k8s.io/knative-serving-activator unchanged
+clusterrolebinding.rbac.authorization.k8s.io/knative-serving-activator-cluster unchanged
+customresourcedefinition.apiextensions.k8s.io/images.caching.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/certificates.networking.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/configurations.serving.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/clusterdomainclaims.networking.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/domainmappings.serving.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/ingresses.networking.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/metrics.autoscaling.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/podautoscalers.autoscaling.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/revisions.serving.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/routes.serving.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/serverlessservices.networking.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/services.serving.knative.dev unchanged
+secret/serving-certs-ctrl-ca unchanged
+secret/knative-serving-certs unchanged
+secret/routing-serving-certs unchanged
+image.caching.internal.knative.dev/queue-proxy unchanged
+configmap/config-autoscaler unchanged
+configmap/config-defaults unchanged
+configmap/config-deployment unchanged
+configmap/config-domain unchanged
+configmap/config-features unchanged
+configmap/config-gc unchanged
+configmap/config-leader-election unchanged
+configmap/config-logging unchanged
+configmap/config-network unchanged
+configmap/config-observability unchanged
+configmap/config-tracing unchanged
+horizontalpodautoscaler.autoscaling/activator unchanged
+poddisruptionbudget.policy/activator-pdb configured
+deployment.apps/activator configured
+service/activator-service unchanged
+deployment.apps/autoscaler configured
+service/autoscaler unchanged
+deployment.apps/controller configured
+service/controller unchanged
+horizontalpodautoscaler.autoscaling/webhook unchanged
+poddisruptionbudget.policy/webhook-pdb configured
+deployment.apps/webhook unchanged
+service/webhook unchanged
+validatingwebhookconfiguration.admissionregistration.k8s.io/config.webhook.serving.knative.dev unchanged
+mutatingwebhookconfiguration.admissionregistration.k8s.io/webhook.serving.knative.dev configured
+validatingwebhookconfiguration.admissionregistration.k8s.io/validation.webhook.serving.knative.dev configured
+secret/webhook-certs unchanged
+clusterrole.rbac.authorization.k8s.io/knative-serving-istio unchanged
+gateway.networking.istio.io/knative-ingress-gateway unchanged
+gateway.networking.istio.io/knative-local-gateway unchanged
+service/knative-local-gateway unchanged
+configmap/config-istio unchanged
+peerauthentication.security.istio.io/webhook unchanged
+peerauthentication.security.istio.io/net-istio-webhook unchanged
+deployment.apps/net-istio-controller unchanged
+deployment.apps/net-istio-webhook unchanged
+secret/net-istio-webhook-certs unchanged
+service/net-istio-webhook unchanged
+mutatingwebhookconfiguration.admissionregistration.k8s.io/webhook.istio.networking.internal.knative.dev unchanged
+validatingwebhookconfiguration.admissionregistration.k8s.io/config.webhook.istio.networking.internal.knative.dev unchanged
+certificate.networking.internal.knative.dev/routing-serving-certs unchanged
+configmap/config-domain patched (no change)
+😀 Successfully installed Knative
+namespace/cert-manager unchanged
+customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io unchanged
+customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io unchanged
+customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io unchanged
+customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io unchanged
+customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io unchanged
+customresourcedefinition.apiextensions.k8s.io/orders.acme.cert-manager.io unchanged
+serviceaccount/cert-manager-cainjector unchanged
+serviceaccount/cert-manager unchanged
+serviceaccount/cert-manager-webhook unchanged
+configmap/cert-manager-webhook configured
+clusterrole.rbac.authorization.k8s.io/cert-manager-cainjector unchanged
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-issuers unchanged
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers unchanged
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificates unchanged
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-orders unchanged
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-challenges unchanged
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim unchanged
+clusterrole.rbac.authorization.k8s.io/cert-manager-view unchanged
+clusterrole.rbac.authorization.k8s.io/cert-manager-edit unchanged
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-approve:cert-manager-io unchanged
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificatesigningrequests unchanged
+clusterrole.rbac.authorization.k8s.io/cert-manager-webhook:subjectaccessreviews unchanged
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-cainjector unchanged
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-issuers unchanged
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers unchanged
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificates unchanged
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-orders unchanged
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-challenges unchanged
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim unchanged
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-approve:cert-manager-io unchanged
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificatesigningrequests unchanged
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-webhook:subjectaccessreviews configured
+role.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection unchanged
+role.rbac.authorization.k8s.io/cert-manager:leaderelection unchanged
+role.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving unchanged
+rolebinding.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection unchanged
+rolebinding.rbac.authorization.k8s.io/cert-manager:leaderelection configured
+rolebinding.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving configured
+service/cert-manager unchanged
+service/cert-manager-webhook unchanged
+deployment.apps/cert-manager-cainjector unchanged
+deployment.apps/cert-manager unchanged
+deployment.apps/cert-manager-webhook unchanged
+mutatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook configured
+validatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook configured
+deployment.apps/cert-manager-webhook condition met
+😀 Successfully installed Cert Manager
+namespace/kserve unchanged
+customresourcedefinition.apiextensions.k8s.io/clusterservingruntimes.serving.kserve.io unchanged
+customresourcedefinition.apiextensions.k8s.io/clusterstoragecontainers.serving.kserve.io unchanged
+customresourcedefinition.apiextensions.k8s.io/inferencegraphs.serving.kserve.io unchanged
+customresourcedefinition.apiextensions.k8s.io/inferenceservices.serving.kserve.io unchanged
+customresourcedefinition.apiextensions.k8s.io/servingruntimes.serving.kserve.io unchanged
+customresourcedefinition.apiextensions.k8s.io/trainedmodels.serving.kserve.io unchanged
+serviceaccount/kserve-controller-manager unchanged
+role.rbac.authorization.k8s.io/kserve-leader-election-role unchanged
+clusterrole.rbac.authorization.k8s.io/kserve-manager-role unchanged
+clusterrole.rbac.authorization.k8s.io/kserve-proxy-role unchanged
+rolebinding.rbac.authorization.k8s.io/kserve-leader-election-rolebinding unchanged
+clusterrolebinding.rbac.authorization.k8s.io/kserve-manager-rolebinding unchanged
+clusterrolebinding.rbac.authorization.k8s.io/kserve-proxy-rolebinding unchanged
+configmap/inferenceservice-config unchanged
+secret/kserve-webhook-server-secret unchanged
+service/kserve-controller-manager-metrics-service unchanged
+service/kserve-controller-manager-service unchanged
+service/kserve-webhook-server-service unchanged
+deployment.apps/kserve-controller-manager unchanged
+certificate.cert-manager.io/serving-cert unchanged
+issuer.cert-manager.io/selfsigned-issuer unchanged
+mutatingwebhookconfiguration.admissionregistration.k8s.io/inferenceservice.serving.kserve.io configured
+validatingwebhookconfiguration.admissionregistration.k8s.io/clusterservingruntime.serving.kserve.io configured
+validatingwebhookconfiguration.admissionregistration.k8s.io/inferencegraph.serving.kserve.io configured
+validatingwebhookconfiguration.admissionregistration.k8s.io/inferenceservice.serving.kserve.io configured
+validatingwebhookconfiguration.admissionregistration.k8s.io/servingruntime.serving.kserve.io configured
+validatingwebhookconfiguration.admissionregistration.k8s.io/trainedmodel.serving.kserve.io configured
+pod/kserve-controller-manager-76fb78ffb8-mzvbg condition met
+clusterservingruntime.serving.kserve.io/kserve-huggingfaceserver created
+clusterservingruntime.serving.kserve.io/kserve-lgbserver created
+clusterservingruntime.serving.kserve.io/kserve-mlserver created
+clusterservingruntime.serving.kserve.io/kserve-paddleserver created
+clusterservingruntime.serving.kserve.io/kserve-pmmlserver created
+clusterservingruntime.serving.kserve.io/kserve-sklearnserver created
+clusterservingruntime.serving.kserve.io/kserve-tensorflow-serving created
+clusterservingruntime.serving.kserve.io/kserve-torchserve created
+clusterservingruntime.serving.kserve.io/kserve-tritonserver created
+clusterservingruntime.serving.kserve.io/kserve-xgbserver created
+clusterstoragecontainer.serving.kserve.io/default created
+😀 Successfully installed KServe
+(ml-kubernetes) mayur@mayur:~/Documents/MLOps-Project$ ^C
+(ml-kubernetes) mayur@mayur:~/Documents/MLOps-Project$ ^C
+(ml-kubernetes) mayur@mayur:~/Documents/MLOps-Project$ 

@@ -1,0 +1,7 @@
+{
+    "name": "randomforestreg",
+    "implementation": "mlserver_mlflow.MLflowRuntime",
+    "parameters": {
+        "uri": "../mlruns/0/af46214d4268469dae805183f6f5107e/artifacts/sklearn-model"
+    }
+}

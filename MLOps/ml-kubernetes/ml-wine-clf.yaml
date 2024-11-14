@@ -1,0 +1,24 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "wine-classifier"
+  namespace: "mlflow-kserve-test"
+spec:
+  predictor:
+    containers:
+      - name: "wine-classifier"
+        image: "mayur28/mlflow-wine-classifier"
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+        env:
+          - name: PROTOCOL
+            value: "v2"
+        resources:
+          limits:
+            cpu: "2"
+            memory: 4Gi
+          requests:
+            cpu: "2"
+            memory: 4Gi 
+    terminationGracePeriodSeconds: 300
