@@ -1,3 +1,9 @@
 ML-Computations-libs/dask/data/
 ML-Computations-libs/dask/dask-worker-space/
 Deep-Learning/Tensorflow-autoencoder/ecg.
+LLMs/data/source_files/*.pdf
+MLOps/Ray/ml-kubernetes/bin/*
+MLOps/Ray/ml-kubernetes/bin/*
+MLOps/Ray/ray-mlops/lib/*
+MLOps/Ray/ray-mlops/bin/*
+
