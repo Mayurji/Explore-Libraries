@@ -8,3 +8,4 @@ MLOps/Ray/ml-kubernetes/bin/*
 MLOps/Ray/ray-mlops/lib/*
 MLOps/Ray/ray-mlops/bin/*
 .env
+.venv
