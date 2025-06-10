@@ -9,3 +9,5 @@ MLOps/Ray/ray-mlops/lib/*
 MLOps/Ray/ray-mlops/bin/*
 .env
 .venv
+.metaflow/
+metaflow/dl-metaflow/metaflow_card_cache/
