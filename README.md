@@ -1,6 +1,6 @@
 # Explore-Libraries
 
-## GitAds Sponsored - 🙌 Support the Project
+### GitAds Sponsored - 🙌 Support the Project
 
 This project includes ads to help support ongoing development.  
 They help keep the project **free, open, and continuously improved**.  
