@@ -14,3 +14,5 @@ Understanding and implementing the latest ML Libraries
 ### Acknowledgment
 
 - [Tensorflow](https://www.tensorflow.org/learn)
+
+<!-- GitAds-Verify: ESGI7NK6A8ZRT68O4YM6FV5LQCO24YD1 -->
