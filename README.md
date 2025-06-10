@@ -1,5 +1,16 @@
 # Explore-Libraries
-Understanding and implementing the latest ML Libraries
+
+## GitAds Sponsored - 🙌 Support the Project
+
+This project includes ads to help support ongoing development.  
+They help keep the project **free, open, and continuously improved**.  
+Thanks for your support and understanding! 💛
+
+[![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=mayurji/explore-libraries@github)](https://gitads.dev/v1/ad-track?source=mayurji/explore-libraries@github)
+
+---------------------------------------------------------------
+
+## Understanding and implementing the latest ML Libraries
 
 | Libraries    | Topics | YouTube |
 | :---        | :----:       |  :----:             |
@@ -14,5 +25,3 @@ Understanding and implementing the latest ML Libraries
 ### Acknowledgment
 
 - [Tensorflow](https://www.tensorflow.org/learn)
-
-<!-- GitAds-Verify: ESGI7NK6A8ZRT68O4YM6FV5LQCO24YD1 -->
