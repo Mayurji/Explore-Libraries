@@ -15,7 +15,7 @@ Thanks for your support and understanding! 💛
 | Libraries    | Topics | YouTube |
 | :---        | :----:       |  :----:             |
 | LLMS | RAGs, Fine Tuning, Summarization, Q&A, etc | [![LLMs](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/9DCvUKHvKcs) |
-| [Presidio]() | PII Detection On Text, images, and semi-structured data ||
+| [Presidio](https://github.com/microsoft/presidio) | PII Detection On Text, images, and semi-structured data ||
 | [Docling](https://docling-project.github.io/docling/) | Document Parsing, RAGs, Q&A, etc | [![Docling](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/5UZafoHDopI) |
 | [TextBlob](https://textblob.readthedocs.io/en/dev/)| Tokenization, Noun-Phrase Extraction, Sentiment Analysis, Spell-Checking, POS-Tagging | [![TextBlob](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/1JnIxWSdD0Q) |
 | [spaCy](https://spacy.io)| Lemmatization, Named Entity Recognition, Dependency Parsing, Morphology, Similarity | [![spaCy](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/wjAPQH_KE0k) |
