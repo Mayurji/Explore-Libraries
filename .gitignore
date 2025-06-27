@@ -13,3 +13,4 @@ MLOps/Ray/ray-mlops/bin/*
 metaflow/dl-metaflow/metaflow_card_cache/
 chonkie-tutorial
 cognee-env
+timeseries-env
