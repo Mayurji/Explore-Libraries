@@ -16,3 +16,4 @@ cognee-env
 timeseries-env
 mlflow/mlruns
 ssl-env/
+meilisearch/meilisearch
