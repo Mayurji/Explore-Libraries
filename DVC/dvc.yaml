@@ -1,0 +1,19 @@
+params:
+- dvclive/params.yaml
+metrics:
+- dvclive/metrics.json
+plots:
+- dvclive/plots/sklearn/train/confusion_matrix.json:
+    template: confusion
+    x: actual
+    y: predicted
+    title: Train Confusion Matrix
+    x_label: True Label
+    y_label: Predicted Label
+- dvclive/plots/sklearn/test/confusion_matrix.json:
+    template: confusion
+    x: actual
+    y: predicted
+    title: Test Confusion Matrix
+    x_label: True Label
+    y_label: Predicted Label
