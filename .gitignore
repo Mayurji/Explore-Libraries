@@ -23,3 +23,5 @@ segmented-animals-basic-1/
 benchmark-model-gnoe4-1/
 *.jpg
 computer-vision/Corgi-1/*
+MLOps/wandb/MNIST/*
+MLOps/wandb/wandb/*
