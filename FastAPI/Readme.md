@@ -77,6 +77,11 @@ CRUD refers to create, read, update, and delete - using a simple, in-memory data
 
 3. Write post, get, put, delete request to perform CURD operation.
 
+- Post request to create a item in a list.
+- Get request to fetch a item from the list.
+- Put request to update item in the list.
+- Delete request to remove item from the list.
+
 
 
 
