@@ -82,6 +82,32 @@ CRUD refers to create, read, update, and delete - using a simple, in-memory data
 - Put request to update item in the list.
 - Delete request to remove item from the list.
 
+## FastAPI and Databases
 
+**ORM: object Releational Mapping**
 
+It acts as an abstraction layer that connects your FastAPI application with underlying database.
+Instead of writing SQL directly, you interact with the database using Python objects and methods.
+
+FastAPI uses SQLModel ORM, a powerful user-friendly wrapper built on top of SQLAlchemy.
+Where SQLAlchemy is an Industry standard, highly flexible, suitable for complex applications.
+
+SQLModel is highly recommended for its excellent integration with Pydantic Models.
+
+### Async and Sync Database calls
+
+We know that FastAPI uses ASGI for enable asynchronous programming.
+
+**Synchronous call**
+
+- Blocking: Server waits for DB query to be completed, until then worker process is blocked and cannot handle other requests.
+- Libraries: `psycopg2` or standard `sqlite3`
+
+**Asynchronous call**
+
+- Non-blocking: Server suspends the task after query, and goes on with handling other request. After the query is executed, it resumes the task.
+- Result: Significant concurrency, high performance under high load.
+- Libraries: `asyncpg`, `aiosqlite`, and modern modern ORMs like SQLModel or SQLAlchemy 2.0+ use asyncio-compatible drivers (e.g., asyncpg or aiosqlite) via the new await syntax.
+
+**Rule of thumb: Always use async database operations in FastAPI.**
 
