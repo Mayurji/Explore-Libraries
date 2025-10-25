@@ -1,55 +1,72 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import Optional, List
+from fastapi import FastAPI, Depends
+from typing import Generator, AsyncGenerator
+from sqlmodel import SQLModel, Field, Session, select, create_engine
+from sqlmodel.ext.asyncio.session import AsyncSession
+from sqlalchemy.ext.asyncio import create_async_engine
+from contextlib import asynccontextmanager
 
-#data model
-class Item(BaseModel):
+class Hero(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
     name: str
-    price: float
-    description: Optional[str] = None
-    tax: Optional[float] = None
+    secret_name: str
+    age: int | None = None
 
-#app initi
-app = FastAPI()
+#ASYNC APP
+ASYNC_DATABASE_URL = 'sqlite+aiosqlite:///./test_async.db'
+async_engine = create_async_engine(ASYNC_DATABASE_URL, echo=False)
 
-#in-memory db
-items_db: dict[int, Item] = {}
-next_id = 1
+async def create_async_db_and_table():
+    async with async_engine.begin() as conn:
+        await conn.run_sync(SQLModel.metadata.create_all)
 
-@app.post('/items/')
-def create_item(item: Item):
-    global next_id
+@asynccontextmanager
+async def async_lifespan(app: FastAPI):
+    print('Starting Async App: creating tables')
+    await create_async_db_and_table()
+    yield
+    print('shutting down Async app')
 
-    items_db[next_id] = item
-    new_item_id = next_id
-    next_id += 1
+async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
+    async with AsyncSession(async_engine) as session:
+        yield session
 
-    return {'id': new_item_id, **item.model_dump()}
+app_async = FastAPI(lifespan=async_lifespan, title='Async API')
 
-@app.get('/items/')
-def read_items() -> List[Item]:
-    return list(items_db.values())
+@app_async.post('/async/heroes', response_model=Hero)
+async def create_hero(*, session: AsyncSession = Depends(get_async_session), hero: Hero):
+    session.add(hero)
+    await session.commit()
+    await session.refresh(hero)
+    return hero
 
+@app_async.get('/async/heroes', response_model=list[Hero])
+async def create_hero(*, session: AsyncSession = Depends(get_async_session)):
+    result = await session.execute(select(Hero))
+    heroes = result.scalars().all()
+    return heroes
 
-@app.get('/items/{item_id}')
-def read_item(item_id: int):
-    if item_id not in items_db:
-        raise HTTPException(status_code=404, detail=f'Item with id {item_id} not found')
-    
-    return items_db[item_id]
+########### SYNC APP ####
+SYNC_DATABASE_URL = 'sqlite:///./test_sync.db'
+sync_engine = create_engine(SYNC_DATABASE_URL, echo=False)
 
-@app.put('/items/{item_id}')
-def update_item(item_id: int, item: Item):
-    if item_id not in items_db:
-        raise HTTPException(status_code=404, detail=f'Item with id {item_id} not found')
-    
-    items_db[item_id] = item
-    return {'id': item_id, "message": 'item object is updated', **item.model_dump()}
+print('Starting sync app: creating table')
+SQLModel.metadata.create_all(sync_engine)
 
-@app.delete('/items/{item_id}')
-def delete_item(item_id: int):
-    if item_id not in items_db:
-        raise HTTPException(status_code=404, detail=f'Item with id {item_id} not found')
+app_sync = FastAPI(title='Sync API')
 
-    del items_db[item_id]
-    return {'id': item_id, 'message': f'Item with id {item_id} is removed'}
+def get_sync_session() -> Generator[Session, None, None]:
+    with Session(sync_engine) as session:
+        yield session
+
+@app_sync.post('/sync/heroes', response_model=Hero)
+def create_hero(*, session: Session = Depends(get_sync_session), hero: Hero):
+    session.add(hero)
+    session.commit()
+    session.refresh(hero)
+    return hero
+
+@app_sync.get('/sync/heroes', response_model=list[Hero])
+def create_hero(*, session: Session = Depends(get_sync_session)):
+    result = session.execute(select(Hero))
+    heroes = result.all()
+    return heroes

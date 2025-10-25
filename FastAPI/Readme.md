@@ -84,6 +84,11 @@ CRUD refers to create, read, update, and delete - using a simple, in-memory data
 
 ## FastAPI and Databases
 
+**Task**
+
+- Building two FastAPI application; asynchronous and synchronous!
+- Use Locust to perform Load testing on both the application.
+
 **ORM: object Releational Mapping**
 
 It acts as an abstraction layer that connects your FastAPI application with underlying database.
@@ -111,3 +116,59 @@ We know that FastAPI uses ASGI for enable asynchronous programming.
 
 **Rule of thumb: Always use async database operations in FastAPI.**
 
+## FastAPI Authentication & Authorization
+
+<img src="image-5.png" width="500"/>
+
+**Task**
+
+Consider you have created an account in a banking website, and you're trying to login. To login, you will use your username and password.
+
+**Authenticate the user and password:**
+- Verify the user is present.
+- Verify the password is matching.
+
+**Generate Session Token With Expiry:**
+- Generate a token with expiry for the session.
+- If the session is expired, lock out the user from accessing the API.
+
+pip install fastapi uvicorn python-jose[cryptography] passlib[bcrypt]
+
+#### 2. Run the Application
+
+Save the code above as `main.py` and run it:
+
+```bash
+uvicorn main:app --reload
+
+#### 3. Login (Getting the JWT Token)
+
+1.  Open your browser and navigate to the interactive documentation: `http://127.0.0.1:8000/docs`.
+2.  You will see an **Authorize** button at the top right, and the `/token` endpoint will have a security lock icon.
+3.  Click the **Authorize** button. A dialog will pop up asking for **Username** and **Password**.
+4.  Enter the hardcoded credentials from the example:
+    * **Username:** `testuser`
+    * **Password:** `securepassword123`
+5.  Click **Authorize**. The Swagger UI will now automatically use the received Bearer token for all protected requests.
+
+**Under the Hood (`@app.post("/token")`):**
+* The client sends the username and password as form data to the `/token` endpoint.
+* The server calls `authenticate_user` to verify the credentials against the hashed password.
+* Upon success, `create_access_token` generates a JWT payload with the user's ID (`"sub": "testuser"`) and an expiration time (`"exp"`).
+* The token is signed with the `SECRET_KEY` and returned in the required OAuth2 format: `{"access_token": "...", "token_type": "bearer"}`.
+
+#### 4. Accessing a Protected Endpoint
+
+1.  Find the `/users/me/` endpoint in the docs. It should have a lock icon.
+2.  Click on it, then click **Try it out**, and then **Execute**.
+
+**Under the Hood (`@app.get("/users/me/")`):**
+* The client includes the token in the request header: `Authorization: Bearer <your-jwt-token>`.
+* The `token: Annotated[str, Depends(oauth2_scheme)]` dependency extracts the token from the header.
+* The `get_current_user` function runs:
+    * It calls `jwt.decode` using the `SECRET_KEY` to verify the signature and check the expiration time.
+    * If valid, it extracts the username from the payload and looks up the user data.
+    * It returns the `User` object, which is then injected into the route function as `current_user`.
+* If the token is invalid or expired, `get_current_user` raises an `HTTPException` with a `401 Unauthorized` status.
+
+This complete implementation provides robust, industry-standard security using the tools built right into FastAPI. Let me know if you'd like to dive deeper into custom scopes or authorization based on user roles!

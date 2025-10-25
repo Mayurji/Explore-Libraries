@@ -35,7 +35,7 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     """The data we expect to find inside the JWT payload."""
     username: Union[str, None] = None
-
+    
 class User(BaseModel):
     """The public user profile model."""
     username: str
