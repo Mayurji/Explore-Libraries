@@ -140,7 +140,7 @@ Save the code above as `main.py` and run it:
 
 ```bash
 uvicorn main:app --reload
-
+```
 #### 3. Login (Getting the JWT Token)
 
 1.  Open your browser and navigate to the interactive documentation: `http://127.0.0.1:8000/docs`.
@@ -172,3 +172,5 @@ uvicorn main:app --reload
 * If the token is invalid or expired, `get_current_user` raises an `HTTPException` with a `401 Unauthorized` status.
 
 This complete implementation provides robust, industry-standard security using the tools built right into FastAPI. Let me know if you'd like to dive deeper into custom scopes or authorization based on user roles!
+
+## FastAPI Dependency Injection System
