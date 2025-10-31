@@ -174,3 +174,6 @@ uvicorn main:app --reload
 This complete implementation provides robust, industry-standard security using the tools built right into FastAPI. Let me know if you'd like to dive deeper into custom scopes or authorization based on user roles!
 
 ## FastAPI Dependency Injection System
+
+- It helps in sharing logic, database sessions, authentication, and other componenets straightforward.
+- 
