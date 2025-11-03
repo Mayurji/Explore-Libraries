@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Name of the deployment
+  name: ml-api-deployment
+  labels:
+    app: ml-api-predictor
+spec:
+  # MANDATORY: Set the desired number of instances
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ml-api-predictor
+  template:
+    metadata:
+      labels:
+        app: ml-api-predictor
+    spec:
+      containers:
+      - name: ml-api-container
+        # 1. Image Path: REPLACE this with your registry path (e.g., yourusername/ml-api-image:latest)
+        image: mayur28/fastapi-ml:0.1v
+        ports:
+        - containerPort: 8000 # Port defined in main.py and Dockerfile (where Uvicorn runs)
+        # 2. Resource Limits: Set limits for stability
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  # Name of the service
+  name: ml-api-service
+spec:
+  # Selects all pods with the label 'app: ml-api-predictor'
+  selector:
+    app: ml-api-predictor
+  ports:
+    - protocol: TCP
+      port: 80 # The port the service exposes (users hit this port)
+      targetPort: 8000 # The port the container is listening on
+  # Type: NodePort exposes the service outside the cluster, making it easy to access.
+  type: NodePort
+# ---
+# apiVersion: autoscaling/v2beta2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: ml-api-hpa
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: ml-api-deployment
+#   minReplicas: 1
+#   maxReplicas: 5
+#   metrics:
+#     - type: Resource
+#       resource:
+#         name: cpu
+#         target:
+#           type: Utilization
+#           averageUtilization: 50
