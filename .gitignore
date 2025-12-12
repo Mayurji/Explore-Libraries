@@ -25,3 +25,13 @@ benchmark-model-gnoe4-1/
 computer-vision/Corgi-1/*
 MLOps/wandb/MNIST/*
 MLOps/wandb/wandb/*
+Deep-Learning/QAT/data/*
+Deep-Learning/QAT/MNIST
+Deep-Learning/QAT/*.pth
+evidently-*
+DeepAgent
+video-rag/mixed_data
+video-rag/input_vid.mp3
+video-rag/.env
+video-rag/lancedb
+video-rag/video_data
