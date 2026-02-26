@@ -59,9 +59,7 @@ The order of the requests in a batch is not guaranteed.
 
 ### Model Composition In BentoML
 
-BentoML allows you to compose multiple models into a single service. This is useful for complex applications where different models need to work together, such as in Retrieval-Augmented Generation (RAG) systems.
-
-In BentoML, you can create a service that combines multiple models, each with its own runner. This allows you to handle different types of requests and orchestrate the flow of data between models.
+In BentoML, we can combine multiple models to build complex applications like RAG.
 
 <img src="image-3.png" alt="Model Composition In BentoML" width="600">
 
@@ -73,8 +71,13 @@ BentoML provides Service APIs for creating workflows, where models need to work
 When to use model composition:
 - Processing different types of data (e.g., text and images)
 - Improve accuracy by combining predictions from multiple models
-- Run different models on specialized hardware (e.g., GPU for one model, CPU for another)
+- Run different modelVs on specialized hardware (e.g., GPU for one model, CPU for another)
 - Orchestrate sequential steps like preprocessing, inference, and postprocessing with specialized models or services
+
+Task:
+
+1. Run multiple models in one service: You can run multiple models on the same hardware device and expose separate or combined APIs for them.
+2. Run and scale multiple models independently in separate Services(Sequential & Concurrent): When your models need independent scaling or different hardware, split them into separate Services.
 
 ### For interested readers:
 
