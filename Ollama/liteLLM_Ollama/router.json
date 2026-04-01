@@ -1,0 +1,30 @@
+{
+    "encoder_type": "ollama",
+    "encoder_name": "nomic-embed-text",
+    "routes": [
+        {
+            "name": "image-inputs",
+            "utterances": [
+                "What is in this picture?",
+                "describe the image",
+                "vision analysis",
+                "what is described in the image",
+                "analyze this image",
+                "describe the photo",
+                "vision task",
+                "OCR this document",
+                "process base64 image"
+            ],
+            "score_threshold": 0.3
+        },
+        {
+            "name": "code-snippets-sql",
+            "utterances": [
+                "write a SQL query",
+                "generate python code",
+                "fix this syntax error"
+            ],
+            "score_threshold": 0.3
+        }
+    ]
+}

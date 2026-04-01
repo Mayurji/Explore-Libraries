@@ -1,0 +1,26 @@
+model_list:
+  # Tier 1: Fast, simple queries
+  - model_name: tier-1-fast
+    litellm_params:
+      model: ollama/llama3.2:3b
+      api_base: http://localhost:11434
+ 
+  # Tier 2: Balanced reasoning
+  - model_name: tier-2-balanced
+    litellm_params:
+      model: ollama/deepseek-r1
+      api_base: http://localhost:11434
+ 
+  # Tier 3: Complex reasoning
+  - model_name: tier-3-complex
+    litellm_params:
+      model: ollama/qwen3.5:4b
+      api_base: http://localhost:11434
+ 
+router_settings:
+  routing_strategy: latency-based-routing
+  num_retries: 2
+  timeout: 30
+  fallbacks:
+    - tier-1-fast: ["tier-2-balanced"]
+    - tier-2-balanced: ["tier-3-complex"]

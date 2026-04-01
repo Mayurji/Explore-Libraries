@@ -1,0 +1,34 @@
+model_list:
+  # 1. Target Models (Your local Ollama instances)
+  - model_name: image-inputs
+    litellm_params:
+      model: ollama/qwen3.5:0.8b
+      api_base: http://localhost:11434
+ 
+  - model_name: code-snippets-sql
+    litellm_params:
+      model: ollama/granite3.1-moe
+      api_base: http://localhost:11434
+ 
+  - model_name: general-llm
+    litellm_params:
+      model: ollama/granite4:350m
+      api_base: http://localhost:11434
+
+  # 2. Embedding Model (Required for semantic comparison)
+  # You can run a small embedding model in Ollama too!
+  - model_name: routing-embeddings
+    litellm_params:
+      model: ollama/nomic-embed-text
+      api_base: http://localhost:11434
+
+  # 3. The Semantic Router Configuration
+  - model_name: semantic-hub
+    litellm_params:
+      model: auto_router/auto_router_1
+      auto_router_config_path: "/home/mayur/Documents/git-repo-with-ads/Explore-Libraries/Ollama/liteLLM_Ollama/router.json"
+      auto_router_default_model: general-llm
+      auto_router_embedding_model: routing-embeddings
+
+router_settings:
+  routing_strategy: simple-shuffle # Base strategy for the model pool
