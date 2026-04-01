@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "llm_routing_script"
+    static_configs:
+      - targets: ["host.docker.internal:8001"]
+
+  - job_name: "litellm_proxy"
+    static_configs:
+      - targets: ["host.docker.internal:9998"]

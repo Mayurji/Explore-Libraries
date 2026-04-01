@@ -1,0 +1,163 @@
+# =====================================================
+# PRODUCTION-GRADE LITELLM ROUTER CONFIG (YAML)
+# =====================================================
+
+# """
+# Save this as: config.yaml
+# Run with: litellm --config config.yaml
+# """
+
+# -----------------------------
+# GLOBAL SETTINGS
+# -----------------------------
+
+general_settings:
+  master_key: sk-1234  # required for proxy auth
+  completion_model: gemini/gemini-2.5-flash
+  request_timeout: 30
+  max_parallel_requests: 20
+  cache: true
+  cache_params:
+    type: redis
+    host: localhost
+    port: 6379
+    ttl: 3600
+
+# -----------------------------
+# MODEL LIST (PROVIDERS)
+# -----------------------------
+
+model_list:
+  - model_name: ollama-llama3.2
+    litellm_params:
+      model: ollama/llama3.2
+      api_base: http://localhost:11434
+
+  - model_name: gemini-flash
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: ${GEMINI_API_KEY}
+
+# -----------------------------
+# ROUTER SETTINGS
+# -----------------------------
+
+router_settings:
+  routing_strategy: "cost-based-routing"  # default fallback
+  num_retries: 2
+  timeout: 20
+  fallbacks:
+    - ollama-llama3.2: ["gemini-flash"]
+
+# -----------------------------
+# SEMANTIC ROUTING CONFIG
+# -----------------------------
+
+semantic_router:
+  enabled: true
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+  routes:
+    - name: coding
+      utterances:
+        - "write code"
+        - "python function"
+        - "debug this"
+      model: ollama-llama3.2
+
+    - name: reasoning
+      utterances:
+        - "explain"
+        - "why"
+        - "concept"
+      model: gemini-flash
+
+# -----------------------------
+# COST-AWARE ROUTING
+# -----------------------------
+
+cost_routing:
+  enabled: true
+  max_budget_per_request: 0.002
+  model_costs:
+    ollama-llama3.2: 0.0001
+    gemini-flash: 0.001
+
+# -----------------------------
+# INTENT-BASED ROUTING
+# -----------------------------
+
+intent_routing:
+  enabled: true
+  rules:
+    - keyword: "code"
+      model: ollama-llama3.2
+
+    - keyword: "explain"
+      model: gemini-flash
+
+    - keyword: "analyze"
+      model: gemini-flash
+
+# -----------------------------
+# CASCADING ROUTING
+# -----------------------------
+
+cascade_routing:
+  enabled: true
+  order:
+    - ollama-llama3.2
+    - gemini-flash
+  quality_checks:
+    min_tokens: 50
+
+# -----------------------------
+# LOAD BALANCING
+# -----------------------------
+
+load_balancing:
+  enabled: true
+  strategy: round_robin
+  models:
+    - ollama-llama3.2
+    - gemini-flash
+
+# -----------------------------
+# LOGGING & OBSERVABILITY
+# -----------------------------
+
+litellm_settings:
+  success_callback: ["prometheus"]
+  failure_callback: ["prometheus"]
+  log_level: "INFO"
+
+# Optional: Prometheus endpoint
+prometheus:
+  enabled: true
+  port: 9998
+
+# -----------------------------
+# RATE LIMITING
+# -----------------------------
+
+rate_limit:
+  requests_per_minute: 60
+  tokens_per_minute: 100000
+
+# -----------------------------
+# SECURITY
+# -----------------------------
+
+security:
+  allowed_ips:
+    - "127.0.0.1"
+    - "0.0.0.0/0"  # restrict in production
+  api_keys:
+    - sk-1234
+
+# """
+# NOTES:
+# - Replace GEMINI_API_KEY in environment variables
+# - Ensure Redis is running for caching
+# - Restrict allowed_ips in real deployments
+# - Tune cost + routing thresholds based on workload
+# """
