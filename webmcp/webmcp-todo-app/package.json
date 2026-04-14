@@ -1,0 +1,19 @@
+{
+  "name": "webmcp-todo-app",
+  "version": "1.0.0",
+  "description": "A simple WebMCP todo application",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^4.22.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebMCP Todo App with Gemini AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 18px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        /* ========== Todo Section ========== */
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"],
+        textarea {
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .input-group input[type="text"] {
+            flex: 1;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .filter-buttons button {
+            padding: 8px 16px;
+            font-size: 13px;
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .filter-buttons button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .todos-list {
+            list-style: none;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .todo-item:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+
+        .todo-item.completed {
+            opacity: 0.6;
+        }
+
+        .todo-item.completed .todo-text {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .todo-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .todo-text {
+            flex: 1;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .todo-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+            background: #ff6b6b;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-small:hover {
+            background: #ff5252;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 40px 20px;
+            font-size: 14px;
+        }
+
+        /* ========== Gemini Chat Section ========== */
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            max-width: 90%;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .message.ai {
+            background: #e3f2fd;
+            color: #333;
+            margin-right: auto;
+        }
+
+        .message.system {
+            background: #fff3cd;
+            color: #856404;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .tools-executed {
+            font-size: 12px;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-item {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 6px 10px;
+            border-radius: 4px;
+            margin: 4px 0;
+            font-family: monospace;
+        }
+
+        .chat-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input-group textarea {
+            flex: 1;
+            resize: vertical;
+            min-height: 60px;
+            max-height: 100px;
+        }
+
+        .chat-input-group button {
+            align-self: flex-end;
+            padding: 12px 20px;
+            height: fit-content;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .tools-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #1565c0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- TODO SECTION -->
+        <div class="card">
+            <h1>📝 My Todos</h1>
+            <p class="subtitle">Manual Todo Management</p>
+
+            <div class="input-group">
+                <input type="text" id="todoInput" placeholder="Add a new todo...">
+                <button onclick="addTodoUI()">Add</button>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="active" onclick="filterTodos('all')">All</button>
+                <button onclick="filterTodos('pending')">Pending</button>
+                <button onclick="filterTodos('completed')">Completed</button>
+            </div>
+
+            <ul id="todosList" class="todos-list"></ul>
+
+            <div class="tools-info">
+                📡 <strong>Available WebMCP Tools:</strong>
+                <ul id="toolsDisplayList" style="margin-top: 8px; margin-left: 20px;">
+                    <!-- Tools will be loaded here dynamically -->
+                    <li><i>Loading tools...</i></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- GEMINI CHAT SECTION -->
+        <div class="card">
+            <h2>🤖 Gemini AI Assistant</h2>
+            <p style="color: #666; font-size: 12px; margin-bottom: 15px;">Chat with AI to manage todos</p>
+
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message system">
+                        💬 Welcome! I'm your AI assistant powered by Gemini. You can ask me to manage your todos
+                        naturally.
+                        <br><br>
+                        Try: "Add a todo to buy milk" or "Show me my pending tasks"
+                    </div>
+                </div>
+
+                <div class="chat-input-group">
+                    <textarea id="chatInput"
+                        placeholder="Tell me what to do... (e.g., 'Add a task to learn WebMCP')"></textarea>
+                    <button onclick="sendChatMessage()" id="sendBtn">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="client.js"></script>
+</body>
+
+</html>
